@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shrushti Wakchaure — Data Analyst & BI Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --accent:      #00d4ff;
+      --accent-dim:  #0099bb;
+      --accent-glow: rgba(0,212,255,.18);
+      --bg:          #06090f;
+      --bg2:         #0c1220;
+      --bg3:         #111927;
+      --surface:     #141e2e;
+      --border:      rgba(0,212,255,.14);
+      --text:        #e8edf5;
+      --muted:       #7a8ba0;
+      --heading:     #ffffff;
+      --card-shadow: 0 4px 32px rgba(0,0,0,.45);
+      --radius:      14px;
+      --transition:  .35s cubic-bezier(.4,0,.2,1);
+    }
+    [data-theme="light"] {
+      --bg:       #f0f4fa;
+      --bg2:      #e4eaf5;
+      --bg3:      #d8e2f0;
+      --surface:  #ffffff;
+      --border:   rgba(0,140,200,.18);
+      --text:     #1a2540;
+      --muted:    #5a6e8a;
+      --heading:  #0a1628;
+      --card-shadow: 0 4px 24px rgba(0,80,160,.10);
+    }
+
+    /* ─── RESET & BASE ───────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+      transition: background var(--transition), color var(--transition);
+    }
+    h1,h2,h3,h4 { font-family: 'Syne', sans-serif; color: var(--heading); }
+    a { color: var(--accent); text-decoration: none; }
+    img { max-width: 100%; }
+
+    /* ─── SCROLLBAR ──────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent-dim); border-radius: 4px; }
+
+    /* ─── NOISE OVERLAY ──────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: .4;
+    }
+
+    /* ─── NAVBAR ─────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(6,9,15,.72);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      transition: background var(--transition);
+    }
+    [data-theme="light"] nav { background: rgba(240,244,250,.82); }
+    .nav-logo {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 1.2rem; letter-spacing: -.02em; color: var(--heading);
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: .88rem; font-weight: 500; letter-spacing: .04em;
+      text-transform: uppercase; color: var(--muted);
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    /* toggle */
+    .theme-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); border-radius: 50px; padding: .4rem .9rem;
+      cursor: pointer; font-size: .85rem; display: flex; align-items: center; gap: .4rem;
+      transition: all var(--transition);
+    }
+    .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .burger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: all .3s; }
+
+    /* ─── SECTIONS ───────────────────────────────────────── */
+    section { position: relative; z-index: 1; }
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .78rem; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent); font-weight: 600; margin-bottom: 1rem;
+    }
+    .section-tag::before {
+      content: ''; width: 24px; height: 1.5px; background: var(--accent);
+    }
+
+    /* ─── HERO ───────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 7rem 1.5rem 4rem;
+      background: radial-gradient(ellipse 70% 60% at 60% 40%, rgba(0,212,255,.07) 0%, transparent 70%);
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: center; max-width: 1120px; margin: 0 auto; width: 100%;
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: .6rem;
+      font-size: .82rem; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.4rem;
+    }
+    .hero-eyebrow .dot {
+      width: 8px; height: 8px; background: var(--accent); border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+      50% { box-shadow: 0 0 0 8px transparent; }
+    }
+    .hero-name {
+      font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -.03em; margin-bottom: .5rem;
+    }
+    .hero-name .accent-line {
+      display: block;
+      background: linear-gradient(135deg, var(--accent), #7be8ff);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-tagline {
+      font-size: 1.2rem; color: var(--muted); font-weight: 300;
+      margin-bottom: 1.8rem; max-width: 480px;
+    }
+    .hero-tagline strong { color: var(--text); font-weight: 500; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .btn-primary {
+      padding: .7rem 1.8rem; border-radius: 50px;
+      background: var(--accent); color: #000;
+      font-weight: 700; font-size: .9rem; letter-spacing: .02em;
+      transition: all var(--transition);
+      box-shadow: 0 0 24px rgba(0,212,255,.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(0,212,255,.5); }
+    .btn-outline {
+      padding: .7rem 1.8rem; border-radius: 50px;
+      border: 1.5px solid var(--border); color: var(--text);
+      font-weight: 500; font-size: .9rem;
+      transition: all var(--transition);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .hero-socials { display: flex; gap: .8rem; }
+    .social-icon {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--surface); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; color: var(--muted); transition: all var(--transition);
+    }
+    .social-icon:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
+    /* hero visual */
+    .hero-visual {
+      display: flex; justify-content: center; align-items: center;
+    }
+    .hero-card {
+      position: relative; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 20px;
+      padding: 2rem; width: 320px;
+      box-shadow: var(--card-shadow), 0 0 40px var(--accent-glow);
+    }
+    .hero-card-avatar {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #7be8ff);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800;
+      color: #000; margin-bottom: 1.2rem;
+    }
+    .hero-card h3 { font-size: 1.15rem; margin-bottom: .3rem; }
+    .hero-card p { font-size: .85rem; color: var(--muted); margin-bottom: 1.4rem; }
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+    .stat-box {
+      background: var(--bg2); border-radius: 10px; padding: .8rem;
+      text-align: center; border: 1px solid var(--border);
+    }
+    .stat-box .num {
+      font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800;
+      color: var(--accent);
+    }
+    .stat-box .lbl { font-size: .72rem; color: var(--muted); }
+    .floating-badge {
+      position: absolute; top: -16px; right: -16px;
+      background: var(--accent); color: #000;
+      font-size: .72rem; font-weight: 700; letter-spacing: .06em;
+      padding: .35rem .8rem; border-radius: 50px;
+      white-space: nowrap;
+    }
+
+    /* ─── ABOUT ──────────────────────────────────────────── */
+    #about {
+      padding: 6rem 0;
+      background: var(--bg2);
+    }
+    .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: center; }
+    .about-side { display: flex; flex-direction: column; gap: 1.2rem; }
+    .about-img-wrap {
+      position: relative; border-radius: 20px; overflow: hidden;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 2rem;
+    }
+    .terminal-window {
+      background: #080e1a; border-radius: 12px;
+      font-family: 'Courier New', monospace; font-size: .83rem;
+      overflow: hidden; border: 1px solid var(--border);
+    }
+    .terminal-bar {
+      background: #141e30; padding: .6rem 1rem;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .terminal-bar .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .terminal-bar .dot:nth-child(1) { background: #ff5f57; }
+    .terminal-bar .dot:nth-child(2) { background: #febc2e; }
+    .terminal-bar .dot:nth-child(3) { background: #28c840; }
+    .terminal-body { padding: 1.2rem 1.2rem 1.4rem; line-height: 1.9; }
+    .term-line { display: flex; gap: .5rem; }
+    .term-prompt { color: var(--accent); }
+    .term-cmd { color: #e8edf5; }
+    .term-out { color: var(--muted); padding-left: .5rem; }
+    .term-out.highlight { color: #7be8ff; }
+    .about-text h2 { font-size: 2.2rem; margin-bottom: 1rem; }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; }
+    .about-text p strong { color: var(--text); }
+    .highlight-pill {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: var(--accent-glow); border: 1px solid var(--border);
+      border-radius: 50px; padding: .3rem .9rem;
+      font-size: .82rem; color: var(--accent); margin: .2rem .2rem 0 0;
+    }
+
+    /* ─── EXPERIENCE ─────────────────────────────────────── */
+    #experience { padding: 6rem 0; }
+    .timeline { position: relative; max-width: 760px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 20px; top: 4px; bottom: 4px;
+      width: 1.5px; background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+    .exp-item {
+      display: flex; gap: 1.8rem; margin-bottom: 2.5rem;
+      opacity: 0; transform: translateX(-20px);
+      transition: all .6s cubic-bezier(.4,0,.2,1);
+    }
+    .exp-item.visible { opacity: 1; transform: none; }
+    .exp-dot {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--surface); border: 2px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+    .exp-body { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; flex: 1; }
+    .exp-meta { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; margin-bottom: .7rem; }
+    .exp-title { font-size: 1.05rem; font-weight: 700; }
+    .exp-company { color: var(--accent); font-weight: 600; font-size: .92rem; }
+    .exp-date {
+      font-size: .78rem; color: var(--muted); background: var(--bg2);
+      border: 1px solid var(--border); border-radius: 50px;
+      padding: .25rem .75rem; height: fit-content;
+    }
+    .exp-desc { color: var(--muted); font-size: .9rem; margin-top: .5rem; }
+    .exp-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+    .tag {
+      background: var(--bg2); border: 1px solid var(--border);
+      color: var(--muted); border-radius: 50px;
+      padding: .2rem .75rem; font-size: .75rem;
+    }
+
+    /* ─── PROJECTS ───────────────────────────────────────── */
+    #projects { padding: 6rem 0; background: var(--bg2); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+    .project-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.6rem;
+      transition: all var(--transition);
+      opacity: 0; transform: translateY(20px);
+      display: flex; flex-direction: column;
+    }
+    .project-card.visible { opacity: 1; transform: none; }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 12px 40px var(--accent-glow); }
+    .project-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--accent-glow); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; margin-bottom: 1.1rem;
+    }
+    .project-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: .5rem; }
+    .project-card p { color: var(--muted); font-size: .87rem; flex: 1; margin-bottom: 1.2rem; }
+    .project-footer { display: flex; justify-content: space-between; align-items: center; }
+    .project-langs { display: flex; gap: .4rem; flex-wrap: wrap; }
+    .lang-dot {
+      font-size: .72rem; color: var(--accent);
+      background: var(--accent-glow); border-radius: 50px;
+      padding: .15rem .6rem; border: 1px solid var(--border);
+    }
+    .project-link {
+      font-size: .78rem; color: var(--muted); transition: color var(--transition);
+    }
+    .project-link:hover { color: var(--accent); }
+    .featured-badge {
+      font-size: .68rem; background: var(--accent); color: #000;
+      border-radius: 50px; padding: .15rem .6rem;
+      font-weight: 700; letter-spacing: .04em; margin-left: .5rem;
+    }
+
+    /* ─── SKILLS ─────────────────────────────────────────── */
+    #skills { padding: 6rem 0; }
+    .skills-columns { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+    .skill-category {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem;
+      opacity: 0; transform: translateY(16px); transition: all .5s ease;
+    }
+    .skill-category.visible { opacity: 1; transform: none; }
+    .skill-cat-label {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: .82rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.2rem;
+      padding-bottom: .6rem; border-bottom: 1px solid var(--border);
+    }
+    .skill-item { display: flex; align-items: center; gap: .7rem; margin-bottom: .8rem; }
+    .skill-icon { font-size: 1.1rem; width: 20px; text-align: center; }
+    .skill-name { font-size: .9rem; flex: 1; }
+    .skill-bar-wrap { width: 70px; height: 4px; background: var(--bg2); border-radius: 2px; }
+    .skill-bar {
+      height: 100%; background: linear-gradient(90deg, var(--accent), #7be8ff);
+      border-radius: 2px; width: 0; transition: width 1.2s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ─── CERTIFICATIONS (UPGRADED) ─────────────────────── */
+    #certifications { padding: 5rem 0; background: var(--bg2); }
+    .cert-grid-full { display: flex; flex-direction: column; gap: 1.2rem; }
+
+    /* Featured large card */
+    .cert-featured {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.8rem 2rem;
+      display: grid; grid-template-columns: 72px 1fr; gap: 1.4rem;
+      align-items: flex-start; transition: all var(--transition);
+      opacity: 0; transform: translateY(18px);
+      border-left: 3px solid var(--accent);
+    }
+    .cert-featured.visible { opacity: 1; transform: none; }
+    .cert-featured:hover { box-shadow: 0 8px 40px var(--accent-glow); }
+    .cert-badge-wrap {
+      width: 64px; height: 64px; border-radius: 14px;
+      background: var(--accent-glow); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; flex-shrink: 0;
+    }
+    .cert-provider { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: .3rem; }
+    .cert-name-lg { font-family: 'Syne', sans-serif; font-size: 1.35rem; font-weight: 800; color: var(--heading); margin-bottom: .5rem; }
+    .cert-desc { font-size: .87rem; color: var(--muted); margin-bottom: .9rem; line-height: 1.6; }
+    .cert-footer-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: .9rem; }
+    .cert-date-pill {
+      font-size: .75rem; color: var(--muted);
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 50px; padding: .22rem .75rem;
+    }
+    .cert-verify-btn {
+      font-size: .78rem; font-weight: 700; color: var(--accent);
+      background: var(--accent-glow); border: 1px solid var(--border);
+      border-radius: 50px; padding: .22rem .85rem;
+      transition: all var(--transition);
+    }
+    .cert-verify-btn:hover { background: var(--accent); color: #000; }
+    .cert-courses { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .cert-course-tag {
+      font-size: .72rem; background: var(--bg3); border: 1px solid var(--border);
+      color: var(--muted); border-radius: 50px; padding: .18rem .65rem;
+    }
+
+    /* Standard small cards row */
+    .cert-std-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+    .cert-std {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.3rem 1.4rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      transition: all var(--transition);
+      opacity: 0; transform: translateY(14px);
+    }
+    .cert-std.visible { opacity: 1; transform: none; }
+    .cert-std:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .cert-icon-wrap {
+      width: 46px; height: 46px; border-radius: 10px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+    }
+    .cert-icon-wrap.gcloud  { background: rgba(66,133,244,.14); border: 1px solid rgba(66,133,244,.25); }
+    .cert-icon-wrap.mentor  { background: rgba(0,100,180,.14);  border: 1px solid rgba(0,100,180,.25); }
+    .cert-icon-wrap.inno    { background: rgba(0,212,100,.10);  border: 1px solid rgba(0,212,100,.2); }
+    .cert-icon-wrap.udemy   { background: rgba(160,60,210,.12); border: 1px solid rgba(160,60,210,.25); }
+    .cert-icon-wrap.hr      { background: rgba(255,190,0,.12);  border: 1px solid rgba(255,190,0,.25); }
+    .cert-provider-sm { font-size: .7rem; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: .25rem; }
+    .cert-name { font-family: 'Syne', sans-serif; font-size: .97rem; font-weight: 700; color: var(--heading); margin-bottom: .2rem; }
+    .cert-issuer { font-size: .8rem; color: var(--muted); }
+
+    /* wrap std cards in a sub-grid */
+    .cert-std-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1rem; margin-top: 0; }
+
+    /* ─── CERTIFICATIONS (OLD — keep for .cert-grid fallback) */
+    .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+    .cert-card { transition: all var(--transition); }
+
+    /* ─── CONTACT ────────────────────────────────────────── */
+    #contact { padding: 6rem 0; }
+    .contact-wrap {
+      max-width: 680px; margin: 0 auto; text-align: center;
+    }
+    .contact-wrap h2 { font-size: 2.4rem; margin-bottom: 1rem; }
+    .contact-wrap p { color: var(--muted); margin-bottom: 2rem; }
+    .contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem; }
+    .contact-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: .9rem 1.4rem;
+      display: flex; align-items: center; gap: .7rem;
+      color: var(--text); transition: all var(--transition);
+      font-size: .9rem;
+    }
+    .contact-card:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: var(--bg2); border-top: 1px solid var(--border);
+      text-align: center; padding: 2rem;
+      color: var(--muted); font-size: .85rem;
+    }
+    footer span { color: var(--accent); }
+
+    /* ─── MOBILE NAV ─────────────────────────────────────── */
+    .mobile-menu {
+      display: none; flex-direction: column; gap: 1.5rem;
+      position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
+      background: var(--bg2); z-index: 90; padding: 2.5rem;
+      align-items: center; justify-content: center;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 1.4rem; font-family: 'Syne', sans-serif; font-weight: 700; color: var(--text); }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 2.5rem; }
+      .hero-visual { justify-content: center; }
+      .hero-eyebrow { justify-content: center; }
+      .hero-btns { justify-content: center; }
+      .hero-socials { justify-content: center; }
+      .about-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .burger { display: flex; }
+    }
+    @media (max-width: 480px) {
+      nav { padding: 1rem 1.2rem; }
+      .hero-card { width: 90%; }
+    }
+
+    /* ─── ACHIEVEMENTS ───────────────────────────────────── */
+    #achievements { padding: 6rem 0; }
+    .ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .ach-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.6rem;
+      display: flex; gap: 1.2rem; align-items: flex-start;
+      transition: all var(--transition);
+      opacity: 0; transform: translateY(20px);
+    }
+    .ach-card.visible { opacity: 1; transform: none; }
+    .ach-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 10px 32px var(--accent-glow); }
+    .ach-medal {
+      width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      background: var(--accent-glow); border: 1px solid var(--border);
+    }
+    .ach-medal.gold   { background: rgba(255,200,40,.14); border-color: rgba(255,200,40,.3); }
+    .ach-medal.silver { background: rgba(180,190,210,.14); border-color: rgba(180,190,210,.3); }
+    .ach-medal.blue   { background: var(--accent-glow); border-color: var(--border); }
+    .ach-body h4 { font-size: .97rem; font-weight: 700; margin-bottom: .3rem; }
+    .ach-body p  { font-size: .84rem; color: var(--muted); line-height: 1.55; }
+    .ach-body .ach-meta {
+      margin-top: .6rem; font-size: .75rem; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--accent); font-weight: 600;
+    }
+
+    /* ─── SCROLL REVEAL ──────────────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ─── CURSOR GLOW ────────────────────────────────────── */
+    .cursor-glow {
+      width: 350px; height: 350px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,212,255,.06), transparent 70%);
+      position: fixed; pointer-events: none; z-index: 0;
+      transform: translate(-50%,-50%);
+      transition: opacity .4s;
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-logo">SW<span>.</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
+        <span id="themeIcon">☀️</span> Light
+      </button>
+      <div class="burger" id="burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" class="mob-link">About</a>
+    <a href="#experience" class="mob-link">Experience</a>
+    <a href="#projects" class="mob-link">Projects</a>
+    <a href="#skills" class="mob-link">Skills</a>
+    <a href="#achievements" class="mob-link">Achievements</a>
+    <a href="#contact" class="mob-link">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <div class="dot"></div>
+          Available for opportunities
+        </div>
+        <h1 class="hero-name">
+          Shrushti<br>
+          <span class="accent-line">Wakchaure</span>
+        </h1>
+        <p class="hero-tagline">
+          <strong>Data Analyst & BI Developer</strong> — transforming raw data into 
+          decisions that move the needle. Python · SQL · Power BI · Machine Learning.
+        </p>
+        <div class="hero-btns">
+          <a href="#projects" class="btn-primary">View My Work</a>
+          <a href="#contact" class="btn-outline">Let's Talk</a>
+        </div>
+        <div class="hero-socials">
+          <a href="https://www.linkedin.com/in/shrushti-wakchaure/" target="_blank" class="social-icon" title="LinkedIn">in</a>
+          <a href="https://github.com/Shrushti72" target="_blank" class="social-icon" title="GitHub">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.58v-2.17c-3.34.72-4.04-1.6-4.04-1.6-.55-1.38-1.34-1.75-1.34-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.48 1 .1-.77.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.9 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/></svg>
+          </a>
+          <a href="https://leetcode.com/u/Shrushti72/" target="_blank" class="social-icon" title="LeetCode" style="font-size:.7rem;font-weight:700;">LC</a>
+          <a href="https://www.hackerrank.com/profile/shruwakchaure311" target="_blank" class="social-icon" title="HackerRank" style="font-size:.75rem;font-weight:700;">HR</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="floating-badge">📊 Open to Work</div>
+          <div class="hero-card-avatar">SW</div>
+          <h3>Shrushti Wakchaure</h3>
+          <p>Data Analyst · Pune, MH · India</p>
+          <div class="hero-stats">
+            <div class="stat-box">
+              <div class="num">39+</div>
+              <div class="lbl">GitHub Repos</div>
+            </div>
+            <div class="stat-box">
+              <div class="num" style="color:#f5c518;">#7</div>
+              <div class="lbl">GDG Code Vipassana</div>
+            </div>
+            <div class="stat-box">
+              <div class="num">5★</div>
+              <div class="lbl">HackerRank SQL</div>
+            </div>
+            <div class="stat-box">
+              <div class="num">IBM</div>
+              <div class="lbl">Data Analyst Cert</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-side">
+          <div class="about-img-wrap">
+            <div class="terminal-window">
+              <div class="terminal-bar">
+                <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                <span style="color:#7a8ba0;font-size:.75rem;margin-left:.5rem;">shrushti@analytics ~ </span>
+              </div>
+              <div class="terminal-body">
+                <div class="term-line"><span class="term-prompt">❯</span><span class="term-cmd">whoami</span></div>
+                <div class="term-out highlight">Shrushti Wakchaure</div>
+                <div class="term-line"><span class="term-prompt">❯</span><span class="term-cmd">cat skills.txt</span></div>
+                <div class="term-out">Python, SQL, Power BI, Tableau</div>
+                <div class="term-out">Pandas, NumPy, Seaborn, Scikit-learn</div>
+                <div class="term-out">EDA, ML, Data Storytelling</div>
+                <div class="term-line"><span class="term-prompt">❯</span><span class="term-cmd">ls achievements/</span></div>
+                <div class="term-out highlight">Amazon Sales BI  ·  TCS ML Model</div>
+                <div class="term-out highlight">Churn Prediction  ·  Retail EDA</div>
+                <div class="term-line"><span class="term-prompt">❯</span><span class="term-cmd">echo $STATUS</span></div>
+                <div class="term-out highlight">Open to Data Analyst / BI roles ✓</div>
+                <div class="term-line"><span class="term-prompt">❯</span><span class="term-cmd">_</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about-text reveal">
+          <div class="section-tag">About Me</div>
+          <h2>Data-first thinker,<br>story-driven analyst.</h2>
+          <p>I'm a passionate <strong>Data Analyst & BI Developer</strong> with hands-on experience turning messy datasets into clear, actionable insights. From exploratory data analysis to end-to-end dashboard development, I love every step of the data journey.</p>
+          <p>My work spans <strong>Python-driven EDA, predictive ML models, and Power BI dashboards</strong> that help stakeholders make smarter decisions — faster. I've worked on real-world datasets including Amazon sales, TCS stock prices, bank churn, and road safety analytics.</p>
+          <p>I'm currently seeking a <strong>Data Analyst or Business Intelligence</strong> role where I can combine analytical depth with compelling visual storytelling.</p>
+          <div style="margin-top:1.2rem;">
+            <span class="highlight-pill">📍 Pune, India</span>
+            <span class="highlight-pill">🎓 Engineering Graduate</span>
+            <span class="highlight-pill">📊 Power BI Certified</span>
+            <span class="highlight-pill">🐍 Python Enthusiast</span>
+            <span class="highlight-pill">🏆 5★ HackerRank SQL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:3rem;">
+        <div class="section-tag">Experience</div>
+        <h2 style="font-size:2.2rem;">Where I've worked &<br>what I've built</h2>
+      </div>
+      <div class="timeline">
+        <div class="exp-item">
+          <div class="exp-dot">💼</div>
+          <div class="exp-body">
+            <div class="exp-meta">
+              <div>
+                <div class="exp-title">Data Analyst Intern</div>
+                <div class="exp-company">InnoByte Services</div>
+              </div>
+              <div class="exp-date">Sep 2025</div>
+            </div>
+            <p class="exp-desc">Developed a comprehensive Amazon Sales Analysis project — built Power BI dashboards, authored reports with DAX & M code, and delivered visual presentations revealing revenue trends, top SKUs, and regional performance insights.</p>
+            <div class="exp-tags">
+              <span class="tag">Power BI</span>
+              <span class="tag">DAX</span>
+              <span class="tag">M Code</span>
+              <span class="tag">Amazon Sales Data</span>
+              <span class="tag">Data Visualization</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-dot">🤖</div>
+          <div class="exp-body">
+            <div class="exp-meta">
+              <div>
+                <div class="exp-title">AI/ML Developer — Project Lead</div>
+                <div class="exp-company">Independent / Academic Projects</div>
+              </div>
+              <div class="exp-date">2025 – Present</div>
+            </div>
+            <p class="exp-desc">Led end-to-end development of multiple AI/data projects including a real-time stock trading dashboard, customer churn prediction with XGBoost + SHAP, and an AI-powered road safety decision tool. Built AI agents using Google ADK and multi-agent frameworks.</p>
+            <div class="exp-tags">
+              <span class="tag">Python</span>
+              <span class="tag">XGBoost</span>
+              <span class="tag">Streamlit</span>
+              <span class="tag">WebSocket</span>
+              <span class="tag">Gemini API</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-dot">📈</div>
+          <div class="exp-body">
+            <div class="exp-meta">
+              <div>
+                <div class="exp-title">Data Science Practitioner</div>
+                <div class="exp-company">IISC Collaboration · KDSH 2026</div>
+              </div>
+              <div class="exp-date">Nov 2025 – Jan 2026</div>
+            </div>
+            <p class="exp-desc">Built an interactive Streamlit app for IISc publication & citation metrics (WoS Documents, CNCI, Top Tier trends) with executive-themed dark interface. Contributed to KDSH 2026 narrative consistency detection with long-context LLM reasoning.</p>
+            <div class="exp-tags">
+              <span class="tag">Streamlit</span>
+              <span class="tag">NLP</span>
+              <span class="tag">LLM Reasoning</span>
+              <span class="tag">Citation Analytics</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:3rem;">
+        <div class="section-tag">Projects</div>
+        <h2 style="font-size:2.2rem;">Featured work &<br>data experiments</h2>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-icon">📦</div>
+          <h3>Amazon Sales BI Dashboard <span class="featured-badge">Featured</span></h3>
+          <p>End-to-end Power BI project analyzing Amazon sales data — dynamic dashboards with DAX measures, M transformations, and executive PPT reports revealing revenue patterns and top-performing products.</p>
+          <div class="project-footer">
+            <div class="project-langs">
+              <span class="lang-dot">Power BI</span>
+              <span class="lang-dot">DAX</span>
+              <span class="lang-dot">Excel</span>
+            </div>
+            <a href="https://github.com/Shrushti72/Amazon-Sales-Analysis-Internship" target="_blank" class="project-link">→ GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">🏦</div>
+          <h3>Bank Credit Card Churn EDA <span class="featured-badge">Featured</span></h3>
+          <p>Full exploratory data analysis on bank credit card customer churn — univariate, bivariate, and multivariate analysis with business insights and data-backed retention strategy recommendations.</p>
+          <div class="project-footer">
+            <div class="project-langs">
+              <span class="lang-dot">Python</span>
+              <span class="lang-dot">Pandas</span>
+              <span class="lang-dot">Seaborn</span>
+            </div>
+            <a href="https://github.com/Shrushti72/Bank-CreditCard-Churn-EDA" target="_blank" class="project-link">→ GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">📉</div>
+          <h3>Customer Churn Prediction — XGBoost</h3>
+          <p>Telecom churn ML model using XGBoost with SHAP explainability visualizations and a deployed Streamlit app. Achieved high accuracy with feature importance analysis for business action.</p>
+          <div class="project-footer">
+            <div class="project-langs">
+              <span class="lang-dot">XGBoost</span>
+              <span class="lang-dot">SHAP</span>
+              <span class="lang-dot">Streamlit</span>
+            </div>
+            <a href="https://github.com/Shrushti72/Customer-Churn-Prediction-XGBoost" target="_blank" class="project-link">→ GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">📈</div>
+          <h3>Live Stock Trading Dashboard</h3>
+          <p>Real-time trading platform with WebSocket streaming, financial technical indicators, risk analytics, and portfolio tracking — a full production-ready market intelligence system.</p>
+          <div class="project-footer">
+            <div class="project-langs">
+              <span class="lang-dot">Python</span>
+              <span class="lang-dot">WebSocket</span>
+              <span class="lang-dot">Plotly</span>
+            </div>
+            <a href="https://github.com/Shrushti72/live-stock-dashboard" target="_blank" class="project-link">→ GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">🤖</div>
+          <h3>TCS Stock Analysis & ML Prediction</h3>
+          <p>2002–2025 TCS stock price analysis covering corporate actions, visualization dashboards, and a machine learning price prediction model with robust feature engineering.</p>
+          <div class="project-footer">
+            <div class="project-langs">
+              <span class="lang-dot">Python</span>
+              <span class="lang-dot">Scikit-learn</span>
+              <span class="lang-dot">Matplotlib</span>
+            </div>
+            <a href="https://github.com/Shrushti72/TCS-Stock-Analysis-ML" target="_blank" class="project-link">→ GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">🛒</div>
+          <h3>Retail Sales Analysis</h3>
+          <p>Complete analytics project on the Online Retail dataset — uncovering sales trends, top-performing products, and highest revenue-generating regions using Python + Power BI visualizations.</p>
+          <div class="project-footer">
+            <div class="project-langs">
+              <span class="lang-dot">Python</span>
+              <span class="lang-dot">Power BI</span>
+              <span class="lang-dot">Pandas</span>
+            </div>
+            <a href="https://github.com/Shrushti72/Retail-Sales-Analysis" target="_blank" class="project-link">→ GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">☕</div>
+          <h3>Coffee Shop Sales Analysis</h3>
+          <p>EDA on coffee shop sales — time-series trends, customer behavior patterns, product performance analysis and business recommendations using Python and Jupyter Notebook.</p>
+          <div class="project-footer">
+            <div class="project-langs">
+              <span class="lang-dot">Python</span>
+              <span class="lang-dot">Seaborn</span>
+              <span class="lang-dot">Jupyter</span>
+            </div>
+            <a href="https://github.com/Shrushti72/coffee-sales" target="_blank" class="project-link">→ GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">🌾</div>
+          <h3>AgroGem AI — Smart Farming</h3>
+          <p>AI-powered smart farming assistant using Streamlit, Google Gemini API and Firebase Firestore — providing crop recommendations, weather analysis and pest detection guidance.</p>
+          <div class="project-footer">
+            <div class="project-langs">
+              <span class="lang-dot">Gemini API</span>
+              <span class="lang-dot">Firebase</span>
+              <span class="lang-dot">Streamlit</span>
+            </div>
+            <a href="https://github.com/Shrushti72/AgroGemAI" target="_blank" class="project-link">→ GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">💳</div>
+          <h3>Credit Card Default — SQL Case Study <span class="featured-badge">Featured</span></h3>
+          <p>Big 4 DA portfolio project — end-to-end SQL case study on 30,000 UCI Taiwan credit card default records in Google BigQuery. Covers 15 queries from basic aggregations to advanced CTEs, window functions (RANK, QUALIFY), and a composite risk-scoring model that stratifies customers into High/Medium/Low risk tiers.</p>
+          <div class="project-footer">
+            <div class="project-langs">
+              <span class="lang-dot">SQL</span>
+              <span class="lang-dot">BigQuery</span>
+              <span class="lang-dot">CTE / Window Fn</span>
+            </div>
+            <a href="https://github.com/Shrushti72/Credit-Card-Default-SQL-CaseStudy" target="_blank" class="project-link">→ GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">📖</div>
+          <h3>KDSH 2026 — Narrative Consistency Checker</h3>
+          <p>Kharagpur Data Science Hackathon 2026 submission — a narrative consistency detection system using Pathway for semantic indexing, constraint extraction, and evidence-driven contradiction detection. Designed for interpretability, robustness, and reproducibility with no external APIs at inference time.</p>
+          <div class="project-footer">
+            <div class="project-langs">
+              <span class="lang-dot">Python</span>
+              <span class="lang-dot">NLP</span>
+              <span class="lang-dot">Pathway</span>
+            </div>
+            <a href="https://github.com/Shrushti72/kdsh-2026-narrative-consistency" target="_blank" class="project-link">→ GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">🏛️</div>
+          <h3>IISc Research EDA Dashboard <span class="featured-badge">Featured</span></h3>
+          <p>Interactive Streamlit app built for PAIU-OPSA at IISc Bangalore — explores WoS Documents, Citations, CNCI & Top Tier % publication metrics with dynamic year filtering, trend charts, donut chart tier distribution, KPI cards with YoY % change, and a polished executive-themed dark interface.</p>
+          <div class="project-footer">
+            <div class="project-langs">
+              <span class="lang-dot">Python</span>
+              <span class="lang-dot">Streamlit</span>
+              <span class="lang-dot">Plotly</span>
+            </div>
+            <a href="https://github.com/Shrushti72/IISC-EDA-Project" target="_blank" class="project-link">→ GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">🏙️</div>
+          <h3>SF Employee Salaries — HR & Finance Dashboard</h3>
+          <p>Analysis of San Francisco municipal employee salary data from 2011–2018 — data cleaning, EDA, compensation trend visualizations, and a full Power BI HR & Finance Salary Performance Dashboard for workforce analytics.</p>
+          <div class="project-footer">
+            <div class="project-langs">
+              <span class="lang-dot">Python</span>
+              <span class="lang-dot">Power BI</span>
+              <span class="lang-dot">Jupyter</span>
+            </div>
+            <a href="https://github.com/Shrushti72/Salaries-for-San-Francisco-Employee" target="_blank" class="project-link">→ GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">🏠</div>
+          <h3>Airbnb Analytics Dashboard <span class="featured-badge">Featured</span></h3>
+          <p>End-to-end Airbnb listing data analysis — pricing trends by neighbourhood, occupancy patterns, host performance metrics, and room-type breakdowns visualised in an interactive Power BI dashboard to support host strategy and investment decisions.</p>
+          <div class="project-footer">
+            <div class="project-langs">
+              <span class="lang-dot">Power BI</span>
+              <span class="lang-dot">Python</span>
+              <span class="lang-dot">DAX</span>
+            </div>
+            <a href="https://github.com/Shrushti72" target="_blank" class="project-link">→ GitHub</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:3rem;">
+        <div class="section-tag">Technical Skills</div>
+        <h2 style="font-size:2.2rem;">My analytics toolkit</h2>
+      </div>
+      <div class="skills-columns">
+        <div class="skill-category">
+          <div class="skill-cat-label">Languages & Query</div>
+          <div class="skill-item"><span class="skill-icon">🐍</span><span class="skill-name">Python</span><div class="skill-bar-wrap"><div class="skill-bar" data-pct="92"></div></div></div>
+          <div class="skill-item"><span class="skill-icon">🗄️</span><span class="skill-name">SQL</span><div class="skill-bar-wrap"><div class="skill-bar" data-pct="90"></div></div></div>
+          <div class="skill-item"><span class="skill-icon">📊</span><span class="skill-name">DAX / M Code</span><div class="skill-bar-wrap"><div class="skill-bar" data-pct="78"></div></div></div>
+        </div>
+        <div class="skill-category">
+          <div class="skill-cat-label">Visualization & BI</div>
+          <div class="skill-item"><span class="skill-icon">📊</span><span class="skill-name">Power BI</span><div class="skill-bar-wrap"><div class="skill-bar" data-pct="88"></div></div></div>
+          <div class="skill-item"><span class="skill-icon">📉</span><span class="skill-name">Tableau</span><div class="skill-bar-wrap"><div class="skill-bar" data-pct="75"></div></div></div>
+          <div class="skill-item"><span class="skill-icon">🎨</span><span class="skill-name">Seaborn / Plotly</span><div class="skill-bar-wrap"><div class="skill-bar" data-pct="85"></div></div></div>
+        </div>
+        <div class="skill-category">
+          <div class="skill-cat-label">Data & ML Libraries</div>
+          <div class="skill-item"><span class="skill-icon">🔢</span><span class="skill-name">Pandas / NumPy</span><div class="skill-bar-wrap"><div class="skill-bar" data-pct="90"></div></div></div>
+          <div class="skill-item"><span class="skill-icon">🤖</span><span class="skill-name">Scikit-learn</span><div class="skill-bar-wrap"><div class="skill-bar" data-pct="80"></div></div></div>
+          <div class="skill-item"><span class="skill-icon">⚡</span><span class="skill-name">XGBoost / SHAP</span><div class="skill-bar-wrap"><div class="skill-bar" data-pct="78"></div></div></div>
+        </div>
+        <div class="skill-category">
+          <div class="skill-cat-label">Tools & Platforms</div>
+          <div class="skill-item"><span class="skill-icon">🚀</span><span class="skill-name">Streamlit</span><div class="skill-bar-wrap"><div class="skill-bar" data-pct="85"></div></div></div>
+          <div class="skill-item"><span class="skill-icon">📓</span><span class="skill-name">Jupyter Notebook</span><div class="skill-bar-wrap"><div class="skill-bar" data-pct="92"></div></div></div>
+          <div class="skill-item"><span class="skill-icon">☁️</span><span class="skill-name">Firebase / Git</span><div class="skill-bar-wrap"><div class="skill-bar" data-pct="72"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:2.5rem;">
+        <div class="section-tag">Certifications</div>
+        <h2 style="font-size:2rem;">Verified credentials</h2>
+      </div>
+      <div class="cert-grid-full">
+
+        <!-- IBM — featured large card -->
+        <div class="cert-card cert-featured">
+          <div class="cert-badge-wrap">
+            <div class="cert-badge-icon">🏅</div>
+          </div>
+          <div class="cert-content">
+            <div class="cert-provider">IBM · Coursera Professional Certificate</div>
+            <div class="cert-name-lg">IBM Data Analyst</div>
+            <p class="cert-desc">11-course professional certification covering Excel, SQL, Python, Jupyter, Cognos Analytics, and data visualisation. Built real-world dashboards and completed an IBM Capstone Project. Includes Generative AI for Data Analytics.</p>
+            <div class="cert-footer-row">
+              <span class="cert-date-pill">📅 Apr 19, 2026</span>
+              <a href="https://coursera.org/verify/professional-cert/0C4RNCKXM8MR" target="_blank" class="cert-verify-btn">Verify ↗</a>
+            </div>
+            <div class="cert-courses">
+              <span class="cert-course-tag">Intro to Data Analytics</span>
+              <span class="cert-course-tag">Excel for Data Analysis</span>
+              <span class="cert-course-tag">Python for DS & AI</span>
+              <span class="cert-course-tag">Databases & SQL</span>
+              <span class="cert-course-tag">Data Analysis with Python</span>
+              <span class="cert-course-tag">Data Viz with Python</span>
+              <span class="cert-course-tag">Cognos Analytics</span>
+              <span class="cert-course-tag">Capstone Project</span>
+              <span class="cert-course-tag">Generative AI</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Google BigQuery -->
+        <div class="cert-std-row">
+        <div class="cert-card cert-std">
+          <div class="cert-icon-wrap gcloud">☁️</div>
+          <div>
+            <div class="cert-provider-sm">Google Cloud</div>
+            <div class="cert-name">BigQuery for Data Analysts</div>
+            <div class="cert-issuer">Completion Badge · Google Cloud Skills Boost</div>
+            <div class="cert-date-pill" style="margin-top:.6rem;">Cloud SQL · Data Warehouse</div>
+          </div>
+        </div>
+
+        <!-- Unified Mentor -->
+        <div class="cert-card cert-std">
+          <div class="cert-icon-wrap mentor">🎓</div>
+          <div>
+            <div class="cert-provider-sm">Unified Mentor Pvt Ltd · ISO 9001:2015</div>
+            <div class="cert-name">Certificate of Internship</div>
+            <div class="cert-issuer">Data Analyst Intern · 3 Months</div>
+            <div class="cert-date-pill" style="margin-top:.6rem;">📅 Aug 25 – Nov 25, 2025</div>
+          </div>
+        </div>
+
+        <!-- InnoByte Experience Letter -->
+        <div class="cert-card cert-std">
+          <div class="cert-icon-wrap inno">💼</div>
+          <div>
+            <div class="cert-provider-sm">InnoByte Services · New Delhi</div>
+            <div class="cert-name">Experience Letter</div>
+            <div class="cert-issuer">Data Analyst Intern · Ref: IS/A1/G7396</div>
+            <div class="cert-date-pill" style="margin-top:.6rem;">📅 Oct 1 – Oct 30, 2025</div>
+          </div>
+        </div>
+
+        <!-- Udemy -->
+        <div class="cert-card cert-std">
+          <div class="cert-icon-wrap udemy">🎯</div>
+          <div>
+            <div class="cert-provider-sm">Udemy · Certificate UC-85275e48</div>
+            <div class="cert-name">Data Science for Beginners</div>
+            <div class="cert-issuer">Python, Azure ML & Tableau · 14 hours</div>
+            <div class="cert-date-pill" style="margin-top:.6rem;">📅 Sept 9, 2025</div>
+          </div>
+        </div>
+
+        <!-- HackerRank SQL -->
+        <div class="cert-card cert-std">
+          <div class="cert-icon-wrap hr">⭐</div>
+          <div>
+            <div class="cert-provider-sm">HackerRank</div>
+            <div class="cert-name">5-Star SQL Badge</div>
+            <div class="cert-issuer">Advanced SQL · Joins · Window Functions</div>
+            <div class="cert-date-pill" style="margin-top:.6rem;">Top Percentile Ranking</div>
+          </div>
+        </div>
+
+        <div class="cert-card cert-std">
+          <div class="cert-icon-wrap" style="background:rgba(234,88,12,.12);border:1px solid rgba(234,88,12,.28);font-size:1.3rem;">🌟</div>
+          <div>
+            <div class="cert-provider-sm">Google Developer Groups · Cloud Kochi</div>
+            <div class="cert-name">Code Vipassana S13 — Exceptional Performance</div>
+            <div class="cert-issuer">Building 100% Postgres Compatible AI Apps with Google Cloud</div>
+            <div class="cert-date-pill" style="margin-top:.6rem;">⭐ Exceptional · Hands-on Google Cloud</div>
+          </div>
+        </div>
+
+        <!-- Google Code Vipassana -->
+        <div class="cert-card cert-std">
+          <div class="cert-icon-wrap gcloud">🏅</div>
+          <div>
+            <div class="cert-provider-sm">Google Developer Groups · Cloud Kochi</div>
+            <div class="cert-name">Code Vipassana S13 — Exceptional Performance</div>
+            <div class="cert-issuer">Building 100% Postgres Compatible AI Apps with Google Cloud</div>
+            <div class="cert-date-pill" style="margin-top:.6rem;">🥇 Ranked 7th · Top 25 Nationally</div>
+          </div>
+        </div>
+        </div><!-- end cert-std-row -->
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:3rem;">
+        <div class="section-tag">Achievements</div>
+        <h2 style="font-size:2.2rem;">Milestones &<br>recognition</h2>
+      </div>
+      <div class="ach-grid">
+
+        <div class="ach-card" style="border-color: rgba(255,180,0,.35); background: linear-gradient(135deg, var(--surface), rgba(255,160,0,.05));">
+          <div class="ach-medal gold">🥇</div>
+          <div class="ach-body">
+            <h4>Ranked 7th / Top 25 — Google Code Vipassana Season 13 <span style="background:rgba(255,190,0,.18);color:#f5c518;border:1px solid rgba(255,190,0,.3);border-radius:50px;padding:.15rem .65rem;font-size:.72rem;font-weight:700;letter-spacing:.05em;margin-left:.4rem;">⭐ EXCEPTIONAL</span></h4>
+            <p>Awarded an <strong>Exceptional Performance</strong> certificate by Google Developer Groups Cloud · Kochi for Season 13 of Code Vipassana — <em>Building 100% Postgres Compatible AI Applications with Google Cloud</em>. Recognised in the national top 25 and ranked 7th for extraordinary mastery, dedication, and skill in hands-on Google Cloud learning.</p>
+            <div class="ach-meta">Google Developer Groups · Cloud Kochi · Code Vipassana S13</div>
+          </div>
+        </div>
+            <p>Earned the prestigious IBM Professional Certificate on Coursera by completing 11 rigorous courses — from SQL and Python to Cognos dashboards and a full Capstone project. Verified credential demonstrating entry-level data analyst readiness.</p>
+            <div class="ach-meta">Apr 19, 2026 · IBM · Coursera · <a href="https://coursera.org/verify/professional-cert/0C4RNCKXM8MR" target="_blank" style="color:var(--accent);">Verify ↗</a></div>
+          </div>
+        </div>
+
+        <div class="ach-card">
+          <div class="ach-medal gold">☁️</div>
+          <div class="ach-body">
+            <h4>Google Cloud — BigQuery for Data Analysts Badge</h4>
+            <p>Completed Google Cloud's BigQuery for Data Analysts program and earned an official Google Cloud Skills Boost completion badge — demonstrating hands-on proficiency in cloud-based SQL analytics and large-scale data warehouse querying.</p>
+            <div class="ach-meta">Google Cloud Skills Boost · Completion Badge</div>
+          </div>
+        </div>
+
+        <div class="ach-card">
+          <div class="ach-medal silver">🎓</div>
+          <div class="ach-body">
+            <h4>Data Analyst Intern — Unified Mentor Pvt Ltd</h4>
+            <p>Successfully completed a 3-month Data Analyst internship at Unified Mentor (ISO 9001:2015 certified). Recognised as consistent and hard-working by management. Gained end-to-end experience in data pipelines, analysis, and visual reporting.</p>
+            <div class="ach-meta">Aug 25 – Nov 25, 2025 · Unified Mentor · CIN: U85500HR2023PTC115118</div>
+          </div>
+        </div>
+
+        <div class="ach-card">
+          <div class="ach-medal silver">💼</div>
+          <div class="ach-body">
+            <h4>Data Analyst Intern — InnoByte Services</h4>
+            <p>Received an official Experience Letter from InnoByte Services (AICTE-registered) commending exceptional dedication and professionalism. Delivered a full Amazon Sales Power BI dashboard and DAX-based analytics report during the tenure.</p>
+            <div class="ach-meta">Oct 1 – Oct 30, 2025 · InnoByte Services · Ref: IS/A1/G7396</div>
+          </div>
+        </div>
+
+        <div class="ach-card">
+          <div class="ach-medal gold">⭐</div>
+          <div class="ach-body">
+            <h4>5-Star SQL Badge — HackerRank</h4>
+            <p>Earned the top 5-star SQL rating on HackerRank by solving advanced query challenges covering joins, window functions, subqueries, CTEs and complex aggregations — placing in the top percentile globally among SQL practitioners.</p>
+            <div class="ach-meta">HackerRank · SQL · Top Percentile</div>
+          </div>
+        </div>
+
+        <div class="ach-card">
+          <div class="ach-medal blue">🏆</div>
+          <div class="ach-body">
+            <h4>KDSH 2026 — IIT Kharagpur Data Science Hackathon</h4>
+            <p>Participated in the prestigious Kharagpur Data Science Hackathon 2026 at IIT Kharagpur. Built a Narrative Consistency Detection system using Pathway semantic indexing, LLM reasoning pipelines, and evidence-based contradiction detection — designed for interpretability and reproducibility.</p>
+            <div class="ach-meta">Jan 2026 · IIT Kharagpur · Track: Narrative Reasoning</div>
+          </div>
+        </div>
+
+        <div class="ach-card">
+          <div class="ach-medal blue">🎯</div>
+          <div class="ach-body">
+            <h4>Udemy — Data Science for Beginners: Python, Azure ML & Tableau</h4>
+            <p>Completed a 14-hour Udemy certification course covering data science fundamentals with Python, machine learning on Azure, and visualisation with Tableau — strengthening cross-platform analytics skills across cloud and BI tools.</p>
+            <div class="ach-meta">Sept 9, 2025 · Udemy · 14 hours · Cert: UC-85275e48</div>
+          </div>
+        </div>
+
+        <div class="ach-card">
+          <div class="ach-medal blue">🏛️</div>
+          <div class="ach-body">
+            <h4>IISc Bangalore — Research Analytics Collaboration</h4>
+            <p>Selected to build the official EDA analytics dashboard for PAIU-OPSA at IISc Bangalore — one of India's premier research institutions. Analysed Web of Science citation and publication metrics, delivering an executive Streamlit interface for institutional reporting.</p>
+            <div class="ach-meta">Nov 2025 · IISc Bangalore · PAIU-OPSA Division</div>
+          </div>
+        </div>
+
+        <div class="ach-card">
+          <div class="ach-medal blue">🗄️</div>
+          <div class="ach-body">
+            <h4>Big 4 DA Portfolio — SQL Case Study on BigQuery</h4>
+            <p>Self-designed a Big 4 Data Analyst–level SQL portfolio project on Google BigQuery with 15 progressive queries — from basic aggregations to composite risk-scoring models using CTEs, RANK(), QUALIFY and SAFE_DIVIDE() — interview-ready for top consulting firms.</p>
+            <div class="ach-meta">Feb 2026 · BigQuery · 30,000 records · UCI Taiwan Dataset</div>
+          </div>
+        </div>
+
+        <div class="ach-card">
+          <div class="ach-medal gold">🌟</div>
+          <div class="ach-body">
+            <h4>⭐ Exceptional Performance — Google Code Vipassana S13</h4>
+            <p>Awarded an <strong style="color:var(--accent);">Exceptional Performance</strong> certificate by Google Developer Groups Cloud · Kochi for extraordinary mastery, dedication and skill in Season 13: <em>Building 100% Postgres Compatible AI Applications with Google Cloud</em>. This distinction is the highest recognition given to standout participants of Code Vipassana's hands-on Google Cloud learning programme.</p>
+            <div class="ach-meta">Google Developer Groups · Cloud Kochi · Code Vipassana</div>
+          </div>
+        </div>
+
+        <div class="ach-card">
+          <div class="ach-medal silver">🚀</div>
+          <div class="ach-body">
+            <h4>39+ Public GitHub Repositories</h4>
+            <p>Consistently built and shipped data analytics, ML, and AI projects across domains — from financial analytics and NLP to BI dashboards and real-time systems — demonstrating breadth and depth as a self-driven data professional.</p>
+            <div class="ach-meta">GitHub · Ongoing · 2025–2026</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-wrap reveal">
+        <div class="section-tag" style="justify-content:center;">Contact</div>
+        <h2>Let's build something<br>data-driven together.</h2>
+        <p>I'm actively looking for Data Analyst and Business Intelligence roles. If you have an opportunity, a project, or just want to connect — I'd love to hear from you.</p>
+        <div class="contact-links">
+          <a href="mailto:shruwakchaure311@gmail.com" class="contact-card">
+            <span>✉️</span> shruwakchaure311@gmail.com
+          </a>
+          <a href="https://www.linkedin.com/in/shrushti-wakchaure/" target="_blank" class="contact-card">
+            <span>💼</span> LinkedIn
+          </a>
+          <a href="https://github.com/Shrushti72" target="_blank" class="contact-card">
+            <span>🐙</span> GitHub
+          </a>
+          <a href="https://www.hackerrank.com/profile/shruwakchaure311" target="_blank" class="contact-card">
+            <span>🏆</span> HackerRank
+          </a>
+        </div>
+        <a href="mailto:shruwakchaure311@gmail.com" class="btn-primary" style="display:inline-block;">
+          Send me a message →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Designed & built with 💙 by <span>Shrushti Wakchaure</span> · 2025</p>
+    <p style="margin-top:.4rem; font-size:.78rem;">Data Analyst · BI Developer · Pune, India</p>
+  </footer>
+
+  <script>
+    // ─── THEME TOGGLE ─────────────────────────────────────
+    const themeBtn = document.getElementById('themeBtn');
+    const themeIcon = document.getElementById('themeIcon');
+    let isDark = true;
+    themeBtn.addEventListener('click', () => {
+      isDark = !isDark;
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      themeIcon.textContent = isDark ? '☀️' : '🌙';
+      themeBtn.innerHTML = `<span>${isDark ? '☀️' : '🌙'}</span> ${isDark ? 'Light' : 'Dark'}`;
+    });
+
+    // ─── MOBILE MENU ──────────────────────────────────────
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    burger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    document.querySelectorAll('.mob-link').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+    // ─── CURSOR GLOW ──────────────────────────────────────
+    const glow = document.getElementById('cursorGlow');
+    document.addEventListener('mousemove', e => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top  = e.clientY + 'px';
+    });
+
+    // ─── SCROLL REVEAL ────────────────────────────────────
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal, .exp-item, .project-card, .skill-category, .cert-card, .cert-featured, .cert-std, .ach-card').forEach(el => observer.observe(el));
+
+    // ─── SKILL BARS ───────────────────────────────────────
+    const barObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.skill-bar').forEach(bar => {
+            const pct = bar.dataset.pct;
+            setTimeout(() => { bar.style.width = pct + '%'; }, 200);
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.skill-category').forEach(el => barObserver.observe(el));
+
+    // ─── STAGGER PROJECT CARDS ────────────────────────────
+    document.querySelectorAll('.project-card').forEach((card, i) => {
+      card.style.transitionDelay = (i * 0.08) + 's';
+    });
+
+    // ─── STAGGER CERT CARDS ───────────────────────────────
+    document.querySelectorAll('.cert-card, .cert-std').forEach((card, i) => {
+      card.style.transitionDelay = (i * 0.07) + 's';
+    });
+
+    // ─── STAGGER ACHIEVEMENT CARDS ────────────────────────
+    document.querySelectorAll('.ach-card').forEach((card, i) => {
+      card.style.transitionDelay = (i * 0.08) + 's';
+    });
+
+    // ─── NAVBAR SCROLL ───────────────────────────────────
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 50) nav.style.borderBottomColor = 'var(--border)';
+    });
+  </script>
+</body>
+</html>
